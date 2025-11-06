@@ -1,7 +1,7 @@
- AOS.init({
- 	duration: 800,
- 	easing: 'slide'
- });
+AOS.init({
+	duration: 500,
+	easing: 'slide'
+});
 
 (function($) {
 
@@ -211,12 +211,12 @@
 					var $this = $(this),
 						num = $this.data('number');
 						console.log(num);
-					$this.animateNumber(
-					  {
-					    number: num,
-					    numberStep: comma_separator_number_step
-					  }, 7000
-					);
+				$this.animateNumber(
+				  {
+				    number: num,
+				    numberStep: comma_separator_number_step
+				  }, 500
+				);
 				});
 				
 			}
@@ -270,9 +270,9 @@
 
 		 	var hash = this.hash,
 		 			navToggler = $('.navbar-toggler');
-		 	$('html, body').animate({
+		  $('html, body').animate({
 		    scrollTop: $(hash).offset().top
-		  }, 700, 'easeInOutExpo', function(){
+		  }, 500, 'easeInOutExpo', function(){
 		    window.location.hash = hash;
 		  });
 
@@ -305,7 +305,7 @@
     },
     zoom: {
       enabled: true,
-      duration: 300 // don't foget to change the duration also in CSS
+      duration: 500 // don't foget to change the duration also in CSS
     }
   });
 
@@ -313,7 +313,7 @@
     disableOn: 700,
     type: 'iframe',
     mainClass: 'mfp-fade',
-    removalDelay: 160,
+    removalDelay: 500,
     preloader: false,
 
     fixedContentPos: false
@@ -325,7 +325,7 @@
 	  this.toRotate = toRotate;
 	  this.el = el;
 	  this.loopNum = 0;
-	  this.period = parseInt(period, 10) || 2000;
+	  this.period = parseInt(period, 10) || 500;
 	  this.txt = '';
 	  this.tick();
 	  this.isDeleting = false;
