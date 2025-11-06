@@ -1,6 +1,8 @@
 AOS.init({
 	duration: 500,
-	easing: 'slide'
+	easing: 'slide',
+	once: false,
+	mirror: true
 });
 
 (function($) {
@@ -204,7 +206,9 @@ AOS.init({
 		
 		$('#section-counter').waypoint( function( direction ) {
 
-			if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
+			if( direction === 'down' ) {
+				var $element = $(this.element);
+				$element.removeClass('ftco-animated');
 
 				var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
 				$('.number').each(function(){
@@ -218,7 +222,15 @@ AOS.init({
 				  }, 500
 				);
 				});
+				$element.addClass('ftco-animated');
 				
+			} else if( direction === 'up' ) {
+				// Reset counter when scrolling up
+				$('.number').each(function(){
+					var $this = $(this);
+					$this.text('0');
+				});
+				$(this.element).removeClass('ftco-animated');
 			}
 
 		} , { offset: '95%' } );
@@ -230,11 +242,21 @@ AOS.init({
 		var i = 0;
 		$('.ftco-animate').waypoint( function( direction ) {
 
-			if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
+			var $element = $(this.element);
+			
+			if( direction === 'down' ) {
 				
 				i++;
 
-				$(this.element).addClass('item-animate');
+				// Remove all animation classes first to reset
+				$element.removeClass('ftco-animated fadeIn fadeInUp fadeInLeft fadeInRight item-animate');
+				
+				// Force reflow to ensure classes are removed before adding new ones
+				if ($element[0]) {
+					$element[0].offsetHeight;
+				}
+				
+				$element.addClass('item-animate');
 				setTimeout(function(){
 
 					$('body .ftco-animate.item-animate').each(function(k){
@@ -256,6 +278,13 @@ AOS.init({
 					
 				}, 100);
 				
+			} else if( direction === 'up' ) {
+				// Reset animation when scrolling up - remove all animation classes
+				$element.removeClass('ftco-animated fadeIn fadeInUp fadeInLeft fadeInRight item-animate');
+				// Force reflow to ensure reset happens immediately
+				if ($element[0]) {
+					$element[0].offsetHeight;
+				}
 			}
 
 		} , { offset: '95%' } );
